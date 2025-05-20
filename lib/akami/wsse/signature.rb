@@ -195,9 +195,10 @@ module Akami
       end
 
       def timestamp_digest
-        return nil unless timestamp
+        return nil unless self.timestamp
+
         timestamp = canonicalize(at_xpath(@document, "//Envelope/Header/Security/Timestamp"))
-        Base64.encode64(OpenSSL::Digest::SHA1.digest(timestamp)).strip
+        Base64.encode64(OpenSSL::Digest::SHA1.digest(timestamp)).strip if timestamp
       end
 
       def signed_info_digest_method
